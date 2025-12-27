@@ -406,28 +406,30 @@ const CaseStudiesSection = () => (
     <div className="container max-w-7xl mx-auto px-6">
       <SectionHeading title="Product Case-Studies" subtitle="Intellectual Capital" number="04" />
 
-      {CASE_STUDIES.map((study, idx) => (
-        <a
-          key={idx}
-          href={study.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group p-8 bg-zinc-900/50 border border-zinc-800 rounded-3xl hover:bg-white hover:text-black transition-all duration-500 cursor-pointer block"
-        >
-          <div className="flex justify-between items-start mb-12">
-            <div className="flex flex-wrap gap-2">
-              {study.tags.map(tag => (
-                <span key={tag} className="px-2 py-0.5 border border-current text-[10px] font-bold rounded-full uppercase tracking-widest">
-                  {tag}
-                </span>
-              ))}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {CASE_STUDIES.map((study, idx) => (
+          <a
+            key={idx}
+            href={study.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group p-8 bg-zinc-900/50 border border-zinc-800 rounded-3xl hover:bg-white hover:text-black transition-all duration-500 cursor-pointer block"
+          >
+            <div className="flex justify-between items-start mb-12">
+              <div className="flex flex-wrap gap-2">
+                {study.tags.map(tag => (
+                  <span key={tag} className="px-2 py-0.5 border border-current text-[10px] font-bold rounded-full uppercase tracking-widest">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <ChevronRight className="group-hover:translate-x-1 transition-transform" />
             </div>
-            <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-          </div>
-          <h3 className="text-2xl font-bold mb-2 tracking-tight">{study.title}</h3>
-          <p className="text-sm opacity-60 font-light">{study.subtitle}</p>
-        </a>
-      ))}
+            <h3 className="text-2xl font-bold mb-2 tracking-tight">{study.title}</h3>
+            <p className="text-sm opacity-60 font-light">{study.subtitle}</p>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 );
