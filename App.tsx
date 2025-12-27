@@ -220,11 +220,11 @@ const Hero = () => (
             alt="Maruthi Ram"
           />
         </div>
-        <div className="absolute -bottom-6 -left-6 bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
+        <div className="absolute -bottom-6 -right-6 bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
           <div className="grid grid-cols-2 gap-8">
             <div>
               <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Impact</p>
-              <p className="text-2xl font-black">Millions+</p>
+              <p className="text-2xl font-black">4 Millions+</p>
               <p className="text-zinc-400 text-sm">Users Scale</p>
             </div>
             <div>
