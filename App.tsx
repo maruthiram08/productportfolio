@@ -212,7 +212,7 @@ const Hero = () => (
         </div>
       </div>
 
-      <div className="hidden lg:block relative group">
+      <div className="relative group">
         <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-zinc-800">
           <img
             src="/hero-photo.jpg"
@@ -220,17 +220,17 @@ const Hero = () => (
             alt="Maruthi Ram"
           />
         </div>
-        <div className="absolute -bottom-6 -right-6 bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
-          <div className="grid grid-cols-2 gap-8">
+        <div className="absolute -bottom-6 -right-6 bg-zinc-900 border border-zinc-800 p-6 md:p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
+          <div className="grid grid-cols-2 gap-4 md:gap-8">
             <div>
-              <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Impact</p>
-              <p className="text-2xl font-black">4 Millions+</p>
-              <p className="text-zinc-400 text-sm">Users Scale</p>
+              <p className="text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">Impact</p>
+              <p className="text-xl md:text-2xl font-black">4 Millions+</p>
+              <p className="text-zinc-400 text-xs md:text-sm">Users Scale</p>
             </div>
             <div>
-              <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Education</p>
-              <p className="text-2xl font-black">IIM-B</p>
-              <p className="text-zinc-400 text-sm">MBA Alumni</p>
+              <p className="text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1">Education</p>
+              <p className="text-xl md:text-2xl font-black">IIM-B</p>
+              <p className="text-zinc-400 text-xs md:text-sm">MBA Alumni</p>
             </div>
           </div>
         </div>
