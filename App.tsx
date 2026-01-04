@@ -20,6 +20,16 @@ import { Project, Experience, CaseStudy } from './types';
 // Mock Data
 const PROJECTS: Project[] = [
   {
+    id: 'echelon',
+    title: 'Echelon',
+    category: 'MACRO INVESTING',
+    description: 'Real-time macro intelligence platform with 20+ global indicators, AI-powered regime analysis, and correlation engine for institutional-grade investing insights.',
+    tags: ['Next.js 16', 'GPT-4o', 'FRED API'],
+    imageUrl: '/echelon-thumbnail.png',
+    link: 'https://tryechelon.vercel.app',
+    github: 'https://github.com/maruthiram08/echelon'
+  },
+  {
     id: 'tattva',
     title: 'Tattva',
     category: 'AI / RAG SCHOLAR',
