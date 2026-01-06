@@ -30,6 +30,16 @@ const PROJECTS: Project[] = [
     github: 'https://github.com/maruthiram08/echelon'
   },
   {
+    id: 'leo',
+    title: 'Leo',
+    category: 'AMBIENT MEMORY',
+    description: 'Your second brain for the web—an AI-powered browser companion that captures, enriches, and intelligently resurfaces content with semantic search and zero friction.',
+    tags: ['Next.js 15', 'pgvector', 'Chrome Ext'],
+    imageUrl: '/leo-thumbnail.png',
+    link: 'https://leo-brain.vercel.app',
+    github: 'https://github.com/maruthiram08/leo-brain'
+  },
+  {
     id: 'tattva',
     title: 'Tattva',
     category: 'AI / RAG SCHOLAR',
