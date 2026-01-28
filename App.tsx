@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   ArrowRight,
   Github,
@@ -7,79 +8,17 @@ import {
   Mail,
   ChevronRight,
   ExternalLink,
-  Code,
-  Database,
-  BrainCircuit,
-  PieChart,
-  Gamepad2,
   Menu,
-  X
+  X,
+  BrainCircuit,
+  Gamepad2
 } from 'lucide-react';
-import { Project, Experience, CaseStudy } from './types';
+import { PROJECTS } from './src/data/projects';
+// Re-using types from types.ts, note: PROJECTS is now imported
+import { Experience, CaseStudy } from './types';
+import ProjectDetails from './src/components/ProjectDetails';
 
-// Mock Data
-const PROJECTS: Project[] = [
-  {
-    id: 'echelon',
-    title: 'Echelon',
-    category: 'MACRO INVESTING',
-    description: 'Real-time macro intelligence platform with 20+ global indicators, AI-powered regime analysis, and correlation engine for institutional-grade investing insights.',
-    tags: ['Next.js 16', 'GPT-4o', 'FRED API'],
-    imageUrl: '/echelon-thumbnail.png',
-    link: 'https://tryechelon.vercel.app',
-    github: 'https://github.com/maruthiram08/echelon'
-  },
-  {
-    id: 'leo',
-    title: 'Leo',
-    category: 'AMBIENT MEMORY',
-    description: 'Your second brain for the web—an AI-powered browser companion that captures, enriches, and intelligently resurfaces content with semantic search and zero friction.',
-    tags: ['Next.js 15', 'pgvector', 'Chrome Ext'],
-    imageUrl: '/leo-thumbnail.png',
-    link: 'https://leo-brain.vercel.app',
-    github: 'https://github.com/maruthiram08/leo-brain'
-  },
-  {
-    id: 'tattva',
-    title: 'Tattva',
-    category: 'AI / RAG SCHOLAR',
-    description: "An intelligent RAG application providing scholarly insights into Valmiki's Ramayana, processing 23k+ shlokas via semantic search.",
-    tags: ['Pinecone', 'GPT-4o', 'Cohere'],
-    imageUrl: '/tattva-thumbnail.png',
-    link: 'https://tattva-app.vercel.app',
-    github: 'https://github.com/maruthiram08/tattva-app'
-  },
-  {
-    id: 'klyx',
-    title: 'Klyx',
-    category: 'STOCK ANALYSIS',
-    description: 'Comprehensive financial platform for Indian markets with preset strategies like Golden Crossover and debt optimization.',
-    tags: ['Next.js', 'Flask', 'Python'],
-    imageUrl: '/klyx-thumbnail.png',
-    link: 'https://projectklyx.vercel.app',
-    github: 'https://github.com/maruthiram08/klyx-new'
-  },
-  {
-    id: 'zennity',
-    title: 'Zennity',
-    category: 'MOBILE APP',
-    description: 'A credit card reward maximizer helping users stack offers and hit spending goals through intelligent tracking.',
-    tags: ['React Native', 'TypeScript'],
-    imageUrl: '/zennity-thumbnail.png',
-    link: 'https://zennitycreditcardsapp.vercel.app',
-    github: 'https://github.com/maruthiram08/zennityapp'
-  },
-  {
-    id: 'momento',
-    title: 'Momento',
-    category: 'GEOLOCATION APP',
-    description: 'A social experience where memories are bound to geography—unlocked only when users visit specific physical coordinates.',
-    tags: ['React Native', 'Geo-API'],
-    imageUrl: '/momento-thumbnail.png',
-    link: 'https://heymomento.com',
-    github: 'https://github.com/maruthiram08/heymomento'
-  }
-];
+// --- Components ---
 
 const EXPERIENCES: Experience[] = [
   {
@@ -141,25 +80,48 @@ const CASE_STUDIES: CaseStudy[] = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const isHome = location.pathname === '/';
+
+  const handleScroll = (id: string) => {
+    if (!isHome) return; // If not home, Link will handle routing, this is for hash scrolling
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#" className="text-xl font-extrabold tracking-tighter">
+        <Link to="/" className="text-xl font-extrabold tracking-tighter">
           MARUTHI <span className="text-zinc-500 italic">RAM</span>
-        </a>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-10">
-          {['Projects', 'About', 'Experience', 'Case Studies'].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(' ', '-')}`}
-              className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-            >
-              {item}
-            </a>
-          ))}
+          {['Projects', 'About', 'Experience', 'Case Studies'].map((item) => {
+            const sectionId = item.toLowerCase().replace(' ', '-');
+            return isHome ? (
+              <button
+                key={item}
+                onClick={() => handleScroll(sectionId)}
+                className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+              >
+                {item}
+              </button>
+            ) : (
+              <Link
+                key={item}
+                to={`/#${sectionId}`} // Simple link back to home with hash
+                className="text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+              >
+                {item}
+              </Link>
+            );
+          })}
           <a href="#contact" className="px-5 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-zinc-200 transition-colors">
             Let's Connect
           </a>
@@ -175,14 +137,14 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-zinc-950 border-b border-zinc-800 p-6 flex flex-col gap-4">
           {['Projects', 'About', 'Experience', 'Case Studies'].map((item) => (
-            <a
+            <Link
               key={item}
-              href={`#${item.toLowerCase().replace(' ', '-')}`}
+              to={`/#${item.toLowerCase().replace(' ', '-')}`}
               onClick={() => setIsOpen(false)}
               className="text-lg font-medium text-zinc-400"
             >
               {item}
-            </a>
+            </Link>
           ))}
           <a href="#contact" className="w-full text-center px-5 py-3 bg-white text-black font-bold rounded-lg mt-4">
             Let's Connect
@@ -281,7 +243,8 @@ const FeaturedProjects = () => (
 
       <div className="grid md:grid-cols-2 gap-8">
         {PROJECTS.map((project) => (
-          <div key={project.id} className="group relative bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-all duration-500 flex flex-col">
+          // Changed div to Link
+          <Link to={`/work/${project.id}`} key={project.id} className="group relative bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-700 transition-all duration-500 flex flex-col block">
             <div className="aspect-video overflow-hidden">
               <img
                 src={project.imageUrl}
@@ -296,8 +259,19 @@ const FeaturedProjects = () => (
                   <h3 className="text-2xl font-bold">{project.title}</h3>
                 </div>
                 <div className="flex gap-2">
-                  {project.link && <a href={project.link} className="p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all"><ExternalLink size={16} /></a>}
-                  {project.github && <a href={project.github} className="p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all"><Github size={16} /></a>}
+                  {/* We might want to keep these as quick links or remove them to force visiting the detail page. 
+                       Keeping them for now but stopping propagation if needed, or simply let them be part of the card 
+                       which now links to details. Let's keep them as quick actions. */}
+                  {project.link && (
+                    <object className="z-10 relative">
+                      <a href={project.link} target="_blank" className="block p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all"><ExternalLink size={16} /></a>
+                    </object>
+                  )}
+                  {project.github && (
+                    <object className="z-10 relative">
+                      <a href={project.github} target="_blank" className="block p-2 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-all"><Github size={16} /></a>
+                    </object>
+                  )}
                 </div>
               </div>
               <p className="text-zinc-400 leading-relaxed font-light">{project.description}</p>
@@ -309,7 +283,7 @@ const FeaturedProjects = () => (
                 ))}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
@@ -487,7 +461,8 @@ const Footer = () => (
   </footer>
 );
 
-const App: React.FC = () => {
+// Main Layout Component
+const MainLayout = () => {
   return (
     <div className="selection:bg-white selection:text-black">
       <Navbar />
@@ -498,6 +473,18 @@ const App: React.FC = () => {
       <CaseStudiesSection />
       <Footer />
     </div>
+  );
+};
+
+// App with Routes
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />} />
+        <Route path="/work/:projectId" element={<ProjectDetails />} />
+      </Routes>
+    </Router>
   );
 };
 

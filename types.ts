@@ -8,6 +8,13 @@ export interface Project {
   imageUrl: string;
   link?: string;
   github?: string;
+  // New detailed fields
+  challenge?: string;
+  solution?: string;
+  role?: string;
+  techStack?: string[];
+  features?: string[];
+  impact?: string[];
 }
 
 export interface Experience {
